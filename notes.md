@@ -28,6 +28,12 @@
 - When a render job is submitted, we also submit an element array, an array of indexes of vertices, which selects which vertices get fed into the pipeline
 - The order of these vertices also affects how vertices are assembled into triangles
 
+### Uniform State and Textures
+
+- A rendering job also has a set of fixed values, for parameters that do not change between vertices
+- Often used for textures (one, two, or three dimensional arrays representing images that can be mapped to surfaces)
+- Can also be used as lookup tables for precalculated functions, or as datasets for various kinds of effects
+
 ### The Vertex Shader
 
 - The vertex shader is a program which takes in a set of vertex attributes and outputs a new set of attributes
@@ -41,3 +47,26 @@
     - Take every 3 elements as a separate triangle
     - Make a triangle strip, reusing each element along with the previous 2 to form a new triangle
     - Make a triangle fan, connecting the first element to every subsequent pair of elements
+
+### Rasterization
+
+- The rasterizer takes each triangle, clips it and discards parts that are not on the screen
+- It then breaks the parts which remain into pixel sized fragments
+- The rasterizer will smooth values across the triangle
+
+
+### Fragment shader
+
+- Receives the varying values output by the rasterizer
+- It outputs the colour and depth values which then get output to the frame buffer
+- Common fragment shader operations include texture mapping and lighting
+- Can run independtly for every pixel drawn
+- Can perform the most complicated special effects
+- Most performance-sensitive part of the pipeline
+
+### Final output
+
+- Most opengl implementations allow off-screen drawing
+- Frame buffers can also filter out values based off of two things; depth buffer and stencil buffer
+- Depth testing removes those values which are behind others
+- Stencil buffer can constrain which parts of the screen are drawable
